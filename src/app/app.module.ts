@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { ShareMeterialModule } from './share-module/share-meterial.module'
+import { PlayerService } from './player.service';
 
 
 @NgModule({
@@ -17,7 +18,9 @@ import { ShareMeterialModule } from './share-module/share-meterial.module'
     ShareMeterialModule,
     
   ],
-  providers: [],
+  providers: [
+    PlayerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,8 +4,8 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDragEnter, CdkDragE
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map  } from 'rxjs/operators';
-
 import { IPlayer } from './player.interface';
+import { PlayerService } from './player.service';
 
 @Component({
   selector: 'app-root',
@@ -27,20 +27,16 @@ export class AppComponent implements OnInit {
   selectedPlayers:IPlayer[] = [];
   
 
-   constructor(private http:HttpClient) {   }
+   constructor(private player: PlayerService) {   }
 
    ngOnInit() {    
 
-   this.http.get<IPlayer[]>('assets/data/data.json')
-            .subscribe( data =>  {
-                        
-                        this.availPlayers = data;
-                       // console.log(this.availPlayers);
-                        this.initialBudget();
-                        this.calculateBudget();
-
-                      });
-
+      this.player.getPlayerData()
+                  .subscribe( data =>  {
+                              this.availPlayers = data;
+                              this.initialBudget();
+                              this.calculateBudget(); 
+                  });
    }
 
    initialBudget() {
@@ -83,7 +79,6 @@ export class AppComponent implements OnInit {
                           event.currentIndex);
     }
 
-    //console.log(this.selectedPlayers.length)
     //Calculate budget again
     this.calculateBudget();
 
@@ -98,10 +93,5 @@ export class AppComponent implements OnInit {
     return false;
   }
  
-
- 
-
- 
-
 
 }
